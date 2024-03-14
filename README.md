@@ -10,7 +10,7 @@ TODO
 
 |Input  | Description | Required? | Default | Examples | 
 |--|--|--|--|--|
-| `command` | The subcommand to use with *cargo* or *cross*  | Yes | `check` | `fmt`, `clippy`, `check`, `test`, `doc`, `build`, `run` | 
+| `subcommand` | The subcommand to use with *cargo* or *cross*  | Yes | `check` | `fmt`, `clippy`, `check`, `test`, `doc`, `build`, `run` | 
 |`arguments`| The arguments to use with the subcommand | No | ` ` | `--workspace` `--all-features` `--bin binary_name` `-- --help` `-- -V` | 
 | `rust_release_channel` | The official Rust release channel to use | No | `stable` | `stable`, `beta`, `nightly` | 
 | `use_cross` |Whether to use `cross` instead of using `cargo`| No | `false` | `true`, `false` | 
@@ -27,7 +27,7 @@ Uses [actions/checkout](https://github.com/actions/checkout)
 
 ### 2. Determine Rust Toolchain components
 
-Selects the [Rust toolchain components](https://rust-lang.github.io/rustup/concepts/components.html) to install based on the provided command. If one of the supported commands (see examples above) is not provided, [the following components](action.yml#L59) are installed.
+Selects the [Rust toolchain components](https://rust-lang.github.io/rustup/concepts/components.html) to install based on the provided subcommand. If one of the supported subcommands (see examples above) is not provided, [the following components](action.yml#L59) are installed.
 
 ### 3. Install Rust Toolchain
 
@@ -44,11 +44,11 @@ Uses [Swatinem/rust-cache](https://github.com/Swatinem/rust-cache)
 
 ### 6. Cargo Command
 
-Runs the given command using `cargo` and the provided arguments, if the input `use_cross` is **not** `true`.
+Runs the given subcommand using `cargo` and the provided arguments, if the input `use_cross` is **not** `true`.
 
 ### 7. Cross Command
 
-Runs the given command using `cross` and the provided arguments, if the input `use_cross` is `true`.
+Runs the given subcommand using `cross` and the provided arguments, if the input `use_cross` is `true`.
 
 ## Outputs
 

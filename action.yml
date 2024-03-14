@@ -4,13 +4,13 @@ description: 'Cross-Platform Composite GitHub Action for Rust Workflows'
 
 inputs: 
 
-  command:
-    description: 'The cargo or cross command to run. Examples: fmt, clippy, check, test, build, or run'
+  subcommand:
+    description: 'The cargo or cross subcommand to run. Examples: fmt, clippy, check, test, build, or run'
     required: true
     default: 'check'
 
   arguments:
-    description: 'The arguments to specify to the cargo or cross command, as a single string. Example: --workspace'
+    description: 'The arguments to specify to the cargo or cross subcommand, as a single string. Example: --workspace'
     required: false
     default: ''
 
@@ -43,19 +43,19 @@ runs:
       id: rust_toolchain_components_determination_step
       shell: bash
       run: |
-        if [ ${{ inputs.command }} = "fmt" ]; then
+        if [ ${{ inputs.subcommand }} = "fmt" ]; then
           echo "rust_toolchain_components=cargo,rustfmt" >> "$GITHUB_ENV"
-        elif [ ${{ inputs.command }} = "clippy" ]; then
+        elif [ ${{ inputs.subcommand }} = "clippy" ]; then
           echo "rust_toolchain_components=cargo,clippy" >> "$GITHUB_ENV"
-        elif [ ${{ inputs.command }} = "check" ]; then
+        elif [ ${{ inputs.subcommand }} = "check" ]; then
           echo "rust_toolchain_components=cargo,rustc,rust-std" >> "$GITHUB_ENV"
-        elif [ ${{ inputs.command }} = "test" ]; then
+        elif [ ${{ inputs.subcommand }} = "test" ]; then
           echo "rust_toolchain_components=cargo,rustc,rust-std" >> "$GITHUB_ENV"
-        elif [ ${{ inputs.command }} = "doc" ]; then
+        elif [ ${{ inputs.subcommand }} = "doc" ]; then
           echo "rust_toolchain_components=cargo,rustc,rust-std,rust-docs" >> "$GITHUB_ENV"
-        elif [ ${{ inputs.command }} = "build" ]; then
+        elif [ ${{ inputs.subcommand }} = "build" ]; then
           echo "rust_toolchain_components=cargo,rustc,rust-std" >> "$GITHUB_ENV"
-        elif [ ${{ inputs.command }} = "run" ]; then
+        elif [ ${{ inputs.subcommand }} = "run" ]; then
           echo "rust_toolchain_components=cargo,rustc,rust-std" >> "$GITHUB_ENV"
         else
           echo "rust_toolchain_components=cargo,rustc,rust-std,rustfmt,rust-docs,clippy,miri" >> "$GITHUB_ENV"
@@ -84,10 +84,10 @@ runs:
       id: cargo_command_step
       if: ${{ inputs.use_cross != 'true' }}
       shell: bash
-      run: cargo ${{ inputs.command }} ${{ inputs.arguments }}
+      run: cargo ${{ inputs.subcommand }} ${{ inputs.arguments }}
 
     - name: 🚀🔄🖥️ Cross Command Step
       id: cross_command_step
       if: ${{ inputs.use_cross == 'true' }}
       shell: bash
-      run: cross ${{ inputs.command }} --target ${{ inputs.compilation_target }} ${{ inputs.arguments }}
+      run: cross ${{ inputs.subcommand }} --target ${{ inputs.compilation_target }} ${{ inputs.arguments }}
