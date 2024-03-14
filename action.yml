@@ -30,8 +30,11 @@ inputs:
     default: 'false'
 
 runs:
+
   using: "composite"
+
   steps:
+  
     - name: 🎟 Checkout Git Repository Step
       id: repository_checkout_step
       uses: actions/checkout@v4
