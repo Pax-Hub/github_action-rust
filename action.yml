@@ -82,12 +82,12 @@ runs:
 
     - name: 🚀📦🖥️ Cargo Command Step
       id: cargo_command_step
-      if: ${{ inputs.use_cross != 'true' }}
+      if: ${{ inputs.use_cross != 'true' || inputs.subcommand == 'fmt' }}
       shell: bash
       run: cargo ${{ inputs.subcommand }} ${{ inputs.arguments }}
 
     - name: 🚀🔄🖥️ Cross Command Step
       id: cross_command_step
-      if: ${{ inputs.use_cross == 'true' }}
+      if: ${{ inputs.use_cross == 'true' && inputs.subcommand != 'fmt' }}
       shell: bash
       run: cross ${{ inputs.subcommand }} --target ${{ inputs.compilation_target }} ${{ inputs.arguments }}
