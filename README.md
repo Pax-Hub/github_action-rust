@@ -1,6 +1,6 @@
 # Rust GitHub Action
 
-Cross-Platform Composite GitHub Action for Rust Workflows 
+Cross-platform composite GitHub Action for Rust Workflows 
 
 ## Usage Examples
 
