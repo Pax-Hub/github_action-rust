@@ -4,6 +4,8 @@ Cross-Platform Composite GitHub Action for Rust Workflows
 
 ## Usage Examples
 
+TODO
+
 ## Inputs
 
 |Input  | Description | Required? | Default | Examples | 
