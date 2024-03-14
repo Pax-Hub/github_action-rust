@@ -10,7 +10,7 @@ TODO
 
 |Input  | Description | Required? | Default | Examples | 
 |--|--|--|--|--|
-| `command` | The subcommand to use with *cargo* or *cross*  | Yes | `check` | `fmt`, `clippy`, `check`, `test`, `build`, `run` | 
+| `command` | The subcommand to use with *cargo* or *cross*  | Yes | `check` | `fmt`, `clippy`, `check`, `test`, `doc`, `build`, `run` | 
 |`arguments`| The arguments to use with the subcommand | No | ` ` | `--workspace` `--all-features` `--bin binary_name` `-- --help` `-- -V` | 
 | `rust_release_channel` | The official Rust release channel to use | No | `stable` | `stable`, `beta`, `nightly` | 
 | `use_cross` |Whether to use `cross` instead of using `cargo`| No | `false` | `true`, `false` | 

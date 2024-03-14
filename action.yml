@@ -51,6 +51,8 @@ runs:
           echo "rust_toolchain_components=cargo,rustc,rust-std" >> "$GITHUB_ENV"
         elif [ ${{ inputs.command }} = "test" ]; then
           echo "rust_toolchain_components=cargo,rustc,rust-std" >> "$GITHUB_ENV"
+        elif [ ${{ inputs.command }} = "doc" ]; then
+          echo "rust_toolchain_components=cargo,rustc,rust-std,rust-docs" >> "$GITHUB_ENV"
         elif [ ${{ inputs.command }} = "build" ]; then
           echo "rust_toolchain_components=cargo,rustc,rust-std" >> "$GITHUB_ENV"
         elif [ ${{ inputs.command }} = "run" ]; then
