@@ -1,0 +1,86 @@
+name: 'Rust GitHub Action'
+
+description: 'Cross-Platform GitHub Action for Rust Workflows'
+
+inputs: 
+
+  rust_release_channel:
+    description: 'Examples: stable, beta, or nightly'
+    required: false
+    default: 'stable'
+
+  compilation_target:
+    description: 'Examples: x86_64-unknown-linux-gnu, x86_64-pc-windows-msvc, or aarch64-apple-darwin. The compilation target overrides the values given for software_platform, and cpu_architecture'
+    required: false
+    default: 'x86_64-unknown-linux-gnu'
+
+  command:
+    description: 'The cargo or cross command to run. Examples: fmt, clippy, check, test, build, or run'
+    required: true
+    default: 'check'
+
+  arguments:
+    description: 'The arguments to specify to the cargo or cross command, as a single string. Example: --workspace'
+    required: false
+    default: ''
+
+  use_cross:
+    description: 'Use Cross for cross-compilation. Examples: true or false'
+    required: false
+    default: 'false'
+
+runs:
+  using: "composite"
+  steps:
+    - name: 🎟 Checkout Git Repository Step
+      id: repository_checkout_step
+      uses: actions/checkout@v4
+
+    - name: 🔎🧰 Determine Rust Toolchain components
+      id: rust_toolchain_components_determination_step
+      shell: bash
+      run: |
+        if [ ${{ inputs.command }} = "fmt" ]; then
+          echo "rust_toolchain_components=cargo,rustfmt" >> "$GITHUB_ENV"
+        elif [ ${{ inputs.command }} = "clippy" ]; then
+          echo "rust_toolchain_components=cargo,clippy" >> "$GITHUB_ENV"
+        elif [ ${{ inputs.command }} = "check" ]; then
+          echo "rust_toolchain_components=cargo,rustc,rust-std" >> "$GITHUB_ENV"
+        elif [ ${{ inputs.command }} = "test" ]; then
+          echo "rust_toolchain_components=cargo,rustc,rust-std" >> "$GITHUB_ENV"
+        elif [ ${{ inputs.command }} = "build" ]; then
+          echo "rust_toolchain_components=cargo,rustc,rust-std" >> "$GITHUB_ENV"
+        elif [ ${{ inputs.command }} = "run" ]; then
+          echo "rust_toolchain_components=cargo,rustc,rust-std" >> "$GITHUB_ENV"
+        fi
+
+    - name: 💿🧰 Install Rust Toolchain Step
+      id: toolchain_install_step
+      uses: dtolnay/rust-toolchain@master
+      with:
+        toolchain: ${{ inputs.rust_release_channel }}
+        targets: ${{ inputs.compilation_target }}          
+        components: ${{ env.rust_toolchain_components }}
+
+    - name: 💿🔄 Install Cross-Compilation Tools Step
+      id: cross_install_step
+      if: ${{ inputs.use_cross == 'true' }}
+      uses: taiki-e/install-action@v2
+      with:
+        tool: cross   
+
+    - name: 🏗️🗂 Setup Cache Step
+      id: cache_setup_step
+      uses: Swatinem/rust-cache@v2
+
+    - name: 🚀📦🖥️ Cargo Command Step
+      id: cargo_command_step
+      if: ${{ inputs.use_cross == 'false' }}
+      shell: bash
+      run: cargo ${{ inputs.command }} ${{ inputs.arguments }}
+
+    - name: 🚀🔄🖥️ Cross Command Step
+      id: cross_command_step
+      if: ${{ inputs.use_cross == 'true' }}
+      shell: bash
+      run: cross ${{ inputs.command }} --target ${{ inputs.compilation_target }} ${{ inputs.arguments }}

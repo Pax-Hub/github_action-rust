@@ -1,2 +1,3 @@
-# rust-github-action
-Github Action for Rust Workflows 
+# Rust GitHub Action
+
+Cross-Platform GitHub Action for Rust Workflows 
