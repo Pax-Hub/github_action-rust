@@ -1,18 +1,8 @@
 name: 'Rust GitHub Action'
 
-description: 'Cross-Platform GitHub Action for Rust Workflows'
+description: 'Cross-Platform Composite GitHub Action for Rust Workflows'
 
 inputs: 
-
-  rust_release_channel:
-    description: 'Examples: stable, beta, or nightly'
-    required: false
-    default: 'stable'
-
-  compilation_target:
-    description: 'Examples: x86_64-unknown-linux-gnu, x86_64-pc-windows-msvc, or aarch64-apple-darwin. The compilation target overrides the values given for software_platform, and cpu_architecture'
-    required: false
-    default: 'x86_64-unknown-linux-gnu'
 
   command:
     description: 'The cargo or cross command to run. Examples: fmt, clippy, check, test, build, or run'
@@ -24,10 +14,20 @@ inputs:
     required: false
     default: ''
 
+  rust_release_channel:
+    description: 'Examples: stable, beta, or nightly'
+    required: false
+    default: 'stable'
+
   use_cross:
     description: 'Use Cross for cross-compilation. Examples: true or false'
     required: false
     default: 'false'
+
+  compilation_target:
+    description: 'Examples: x86_64-unknown-linux-gnu, x86_64-pc-windows-msvc, or aarch64-apple-darwin. The compilation target overrides the values given for software_platform, and cpu_architecture'
+    required: false
+    default: 'x86_64-unknown-linux-gnu'
 
 runs:
 
@@ -39,7 +39,7 @@ runs:
       id: repository_checkout_step
       uses: actions/checkout@v4
 
-    - name: 🔎🧰 Determine Rust Toolchain components
+    - name: 🔎🧰 Determine Rust Toolchain components Step
       id: rust_toolchain_components_determination_step
       shell: bash
       run: |
@@ -55,6 +55,8 @@ runs:
           echo "rust_toolchain_components=cargo,rustc,rust-std" >> "$GITHUB_ENV"
         elif [ ${{ inputs.command }} = "run" ]; then
           echo "rust_toolchain_components=cargo,rustc,rust-std" >> "$GITHUB_ENV"
+        else
+          echo "rust_toolchain_components=cargo,rustc,rust-std,rustfmt,rust-docs,clippy,miri" >> "$GITHUB_ENV"
         fi
 
     - name: 💿🧰 Install Rust Toolchain Step
@@ -78,7 +80,7 @@ runs:
 
     - name: 🚀📦🖥️ Cargo Command Step
       id: cargo_command_step
-      if: ${{ inputs.use_cross == 'false' }}
+      if: ${{ inputs.use_cross != 'true' }}
       shell: bash
       run: cargo ${{ inputs.command }} ${{ inputs.arguments }}
 
