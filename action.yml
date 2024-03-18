@@ -36,7 +36,7 @@ inputs:
 
 outputs:
 
-  built-package:
+  artifact:
     description: 'Built Binaries or Documentation uploaded as an artifact'
     value: ${{ format('steps.artifact_upload_step.outputs.artifact-{0}-{1}', inputs.subcommand, inputs.compilation_target) }}
 
@@ -85,7 +85,12 @@ runs:
       if: ${{ inputs.use_cross == 'true' }}
       uses: taiki-e/install-action@v2
       with:
-        tool: cross   
+        tool: cross
+
+    - name: 💿☂️ Install cargo-llvm-cov Step
+      id: llvm_coverage_install_step
+      if: ${{ inputs.subcommand == 'llvm-cov' }}
+      uses: taiki-e/install-action@cargo-llvm-cov
 
     - name: 🏗️🗂 Setup Cache Step
       id: cache_setup_step
