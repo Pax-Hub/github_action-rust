@@ -105,6 +105,19 @@ runs:
       shell: bash
       run: cd ${{ inputs.working_directory }} && cross ${{ inputs.subcommand }} --target ${{ inputs.compilation_target }} ${{ inputs.arguments }}
 
+    - name: 📦🗃️ Gather Outputs
+      id: outputs_gather_step
+      shell: bash
+      run: |
+        cd ${{ inputs.working_directory }}
+        mkdir -p target/.dist
+        find "target/debug" -maxdepth 1 -type f \( ! -name ".*" ! -name "*.d" ! -name "*.rlib" \) -exec cp "{}" "target/.dist/" \;
+        find "target/release" -maxdepth 1 -type f \( ! -name ".*" ! -name "*.d" ! -name "*.rlib" \) -exec cp "{}" "target/.dist/" \;
+        [ -d "target/doc" ] && cp -a "target/doc/." "target/.dist/"
+        find "target/${{ inputs.compilation_target }}/debug" -maxdepth 1 -type f \( ! -name ".*" ! -name "*.d" ! -name "*.rlib" \) -exec cp "{}" "target/.dist/" \;
+        find "target/${{ inputs.compilation_target }}/release" -maxdepth 1 -type f \( ! -name ".*" ! -name "*.d" ! -name "*.rlib" \) -exec cp "{}" "target/.dist/" \;
+        [ -d "target/${{ inputs.compilation_target }}/doc" ] && cp -a "target/${{ inputs.compilation_target }}/doc/." "target/.dist/"
+
     - name: ⬆️🌐🏺 Upload Artifact Step
       id: artifact_upload_step
       uses: actions/upload-artifact@v4
@@ -112,18 +125,4 @@ runs:
         name: artifact-${{ inputs.subcommand }}-${{ inputs.compilation_target }}
         if-no-files-found: ignore
         overwrite: true
-        path: |
-          ${{ inputs.working_directory }}/target/**/debug/*
-          ${{ inputs.working_directory }}/target/**/release/*
-          ${{ inputs.working_directory }}/target/**/doc/*
-          !${{ inputs.working_directory }}/target/**/.fingerprint/
-          !${{ inputs.working_directory }}/target/**/build/
-          !${{ inputs.working_directory }}/target/**/deps/
-          !${{ inputs.working_directory }}/target/**/examples/
-          !${{ inputs.working_directory }}/target/**/incremental/
-          !${{ inputs.working_directory }}/target/**/.cargo-lock
-          !${{ inputs.working_directory }}/target/**/*.d
-          !${{ inputs.working_directory }}/target/**/*.rlib
-          !${{ inputs.working_directory }}/target/**/.rustc_info.json
-          !${{ inputs.working_directory }}/target/**/.rustdoc_fingerprint.json
-          !${{ inputs.working_directory }}/target/**/CACHEDIR.TAG
+        path: ${{ inputs.working_directory }}/target/.dist/*
