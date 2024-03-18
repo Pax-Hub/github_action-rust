@@ -32,10 +32,10 @@ jobs:
           - x86_64
           - aarch64
         subcommand:
-          # - fmt
-          # - clippy
-          # - check
-          # - test
+          - fmt
+          - clippy
+          - check
+          - test
           - doc
           - build
         exclude:
@@ -70,18 +70,18 @@ jobs:
             cpu_architecture: aarch64
             platform: linux
             toolchain: gnu
-          # - subcommand: fmt
-          #   job_name: 📑 Format Job
-          #   arguments: '--verbose -- --check'
-          # - subcommand: clippy
-          #   job_name: 📎 Clippy Job
-          #   arguments: '--workspace -- -D warnings'
-          # - subcommand: check
-          #   job_name: ✅ Check Job
-          #   arguments: '--workspace'
-          # - subcommand: test
-          #   job_name: 🧪 Test Job
-          #   arguments: '--workspace'
+          - subcommand: fmt
+            job_name: 📑 Format Job
+            arguments: '--verbose -- --check'
+          - subcommand: clippy
+            job_name: 📎 Clippy Job
+            arguments: '--workspace -- -D warnings'
+          - subcommand: check
+            job_name: ✅ Check Job
+            arguments: '--workspace'
+          - subcommand: test
+            job_name: 🧪 Test Job
+            arguments: '--workspace'
           - subcommand: doc
             job_name: 📜 Documentation Job
             arguments: '--workspace --all-features --no-deps --document-private-items'
