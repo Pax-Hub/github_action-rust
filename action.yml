@@ -29,6 +29,12 @@ inputs:
     required: false
     default: 'x86_64-unknown-linux-gnu'
 
+outputs:
+
+  built-package:
+    description: 'Built Binaries or Documentation uploaded as an artifact'
+    value: ${{ artifact_upload_step.outputs.artifact }}
+
 runs:
 
   using: "composite"
@@ -91,3 +97,29 @@ runs:
       if: ${{ inputs.use_cross == 'true' && inputs.subcommand != 'fmt' }}
       shell: bash
       run: cross ${{ inputs.subcommand }} --target ${{ inputs.compilation_target }} ${{ inputs.arguments }}
+
+    - name: ⬆️🌐🏺 Upload Artifact Step
+      id: artifact_upload_step
+      if: ${{ inputs.subcommand == 'build' || inputs.subcommand == 'doc' }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: artifact
+        if-no-files-found: error
+        path: |
+          target/debug/*
+          target/release/*
+          target/doc/*
+          target/${{ inputs.compilation_target }}/debug/*
+          target/${{ inputs.compilation_target }}/release/*
+          target/${{ inputs.compilation_target }}/doc/*
+          !target/**/.fingerprint/
+          !target/**/build/
+          !target/**/deps/
+          !target/**/examples/
+          !target/**/incremental/
+          !target/**/.cargo-lock
+          !target/**/*.d
+          !target/**/*.rlib
+          !target/**/.rustc_info.json
+          !target/**/.rustdoc_fingerprint.json
+          !target/**/CACHEDIR.TAG

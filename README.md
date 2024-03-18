@@ -52,4 +52,5 @@ Runs the given subcommand using `cross` and the provided arguments, if the input
 
 ## Outputs
 
-None. The action fails if any of the steps encounter an error. Otherwise it succeeds.
+The built binaries or documentation if relevant. Otherwise none. 
+The action fails if any of the steps encounter an error. Otherwise it succeeds.
