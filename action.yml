@@ -123,3 +123,9 @@ runs:
           !target/**/.rustc_info.json
           !target/**/.rustdoc_fingerprint.json
           !target/**/CACHEDIR.TAG
+
+    - name: ⬆️🌐🏺 Upload Artifact Step
+      id: artifact_upload_step
+      if: ${{ inputs.subcommand != 'build' && inputs.subcommand != 'doc' }}
+      shell: bash
+      run: echo "artifact=''\n" >> $GITHUB_OUTPUT
