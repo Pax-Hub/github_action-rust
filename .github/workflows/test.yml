@@ -66,10 +66,10 @@ jobs:
           #   platform: apple
           #   toolchain: darwin
           #   use_cross: false
-          # - compilation_target: aarch64-unknown-linux-gnu
-          #   cpu_architecture: aarch64
-          #   platform: linux
-          #   toolchain: gnu         
+          - compilation_target: aarch64-unknown-linux-gnu
+            cpu_architecture: aarch64
+            platform: linux
+            toolchain: gnu
           # - subcommand: fmt
           #   job_name: 📑 Format Job
           #   arguments: '--verbose -- --check'
