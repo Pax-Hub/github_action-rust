@@ -112,11 +112,11 @@ runs:
         cd ${{ inputs.working_directory }}
         mkdir -p target/.dist
         find "target/debug" -maxdepth 1 -type f \( ! -name ".*" ! -name "*.d" ! -name "*.rlib" \) -exec cp "{}" "target/.dist/" \; || true
-        find "target/release" -maxdepth 1 -type f \( ! -name ".*" ! -name "*.d" ! -name "*.rlib" \) -exec cp "{}" "target/.dist/" \; || true
-        { [ -d "target/doc" ] && cp -a "target/doc/." "target/.dist/" } || true
-        find "target/${{ inputs.compilation_target }}/debug" -maxdepth 1 -type f \( ! -name ".*" ! -name "*.d" ! -name "*.rlib" \) -exec cp "{}" "target/.dist/" \; || true
-        find "target/${{ inputs.compilation_target }}/release" -maxdepth 1 -type f \( ! -name ".*" ! -name "*.d" ! -name "*.rlib" \) -exec cp "{}" "target/.dist/" \; || true
-        { [ -d "target/${{ inputs.compilation_target }}/doc" ] && cp -a "target/${{ inputs.compilation_target }}/doc/." "target/.dist/" } || true
+        # find "target/release" -maxdepth 1 -type f \( ! -name ".*" ! -name "*.d" ! -name "*.rlib" \) -exec cp "{}" "target/.dist/" \; || true
+        # { [ -d "target/doc" ] && cp -a "target/doc/." "target/.dist/" } || true
+        # find "target/${{ inputs.compilation_target }}/debug" -maxdepth 1 -type f \( ! -name ".*" ! -name "*.d" ! -name "*.rlib" \) -exec cp "{}" "target/.dist/" \; || true
+        # find "target/${{ inputs.compilation_target }}/release" -maxdepth 1 -type f \( ! -name ".*" ! -name "*.d" ! -name "*.rlib" \) -exec cp "{}" "target/.dist/" \; || true
+        # { [ -d "target/${{ inputs.compilation_target }}/doc" ] && cp -a "target/${{ inputs.compilation_target }}/doc/." "target/.dist/" } || true
 
     - name: ⬆️🌐🏺 Upload Artifact Step
       id: artifact_upload_step

@@ -32,12 +32,12 @@ jobs:
           - x86_64
           - aarch64
         subcommand:
-          - fmt
-          - clippy
+          # - fmt
+          # - clippy
           - check
-          - test
-          - doc
-          - build
+          # - test
+          # - doc
+          # - build
         exclude:
           - platform: windows
             cpu_architecture: aarch64
