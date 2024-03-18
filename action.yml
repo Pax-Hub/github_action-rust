@@ -112,7 +112,7 @@ runs:
         cd ${{ inputs.working_directory }}
         mkdir -p target/.dist
         { [ -d "target/debug" ] && find "target/debug" -maxdepth 1 -type f \( ! -name ".*" ! -name "*.d" ! -name "*.rlib" \) -exec cp "{}" "target/.dist/" \; } || true
-        { [ -d "target/release" ] && find "target/release" -maxdepth 1 -type f \( ! -name ".*" ! -name "*.d" ! -name "*.rlib" \) -exec cp "{}" "target/.dist/" \; } || true
+        # { [ -d "target/release" ] && find "target/release" -maxdepth 1 -type f \( ! -name ".*" ! -name "*.d" ! -name "*.rlib" \) -exec cp "{}" "target/.dist/" \; } || true
         # { [ -d "target/doc" ] && cp -a "target/doc/." "target/.dist/" } || true
         # { [ -d "target/${{ inputs.compilation_target }}/debug" ] && find "target/${{ inputs.compilation_target }}/debug" -maxdepth 1 -type f \( ! -name ".*" ! -name "*.d" ! -name "*.rlib" \) -exec cp "{}" "target/.dist/" \; } || true
         # { [ -d "target/${{ inputs.compilation_target }}/release" ] && find "target/${{ inputs.compilation_target }}/release" -maxdepth 1 -type f \( ! -name ".*" ! -name "*.d" ! -name "*.rlib" \) -exec cp "{}" "target/.dist/" \; } || true
