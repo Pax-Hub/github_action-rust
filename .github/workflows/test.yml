@@ -90,6 +90,9 @@ jobs:
             arguments: '--workspace --all-features --release'
     runs-on: ${{ matrix.cicd_runner }}
     steps:
+      - name: 🎟 Checkout Git Repository Step
+        id: repository_checkout_step
+        uses: actions/checkout@v4
       - name: ${{ matrix.job_name }}
         id: task_step
         uses: ./
