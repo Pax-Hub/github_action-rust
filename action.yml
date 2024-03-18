@@ -29,6 +29,11 @@ inputs:
     required: false
     default: 'x86_64-unknown-linux-gnu'
 
+  working_directory:
+    description: 'The directory within which commands are to be run. Examples: . , ./tests/test_app'
+    required: false
+    default: '.'
+
 outputs:
 
   built-package:
@@ -85,18 +90,20 @@ runs:
     - name: 🏗️🗂 Setup Cache Step
       id: cache_setup_step
       uses: Swatinem/rust-cache@v2
+      with:
+        workspaces: ${{ inputs.working_directory }}
 
     - name: 🚀📦🖥️ Cargo Command Step
       id: cargo_command_step
       if: ${{ inputs.use_cross != 'true' || inputs.subcommand == 'fmt' }}
       shell: bash
-      run: cargo ${{ inputs.subcommand }} ${{ inputs.arguments }}
+      run: cd ${{ inputs.working_directory }} && cargo ${{ inputs.subcommand }} ${{ inputs.arguments }}
 
     - name: 🚀🔄🖥️ Cross Command Step
       id: cross_command_step
       if: ${{ inputs.use_cross == 'true' && inputs.subcommand != 'fmt' }}
       shell: bash
-      run: cross ${{ inputs.subcommand }} --target ${{ inputs.compilation_target }} ${{ inputs.arguments }}
+      run: cd ${{ inputs.working_directory }} && cross ${{ inputs.subcommand }} --target ${{ inputs.compilation_target }} ${{ inputs.arguments }}
 
     - name: ⬆️🌐🏺 Upload Artifact Step
       id: artifact_upload_step
@@ -105,20 +112,20 @@ runs:
         name: artifact
         if-no-files-found: ignore
         path: |
-          target/debug/*
-          target/release/*
-          target/doc/*
-          target/${{ inputs.compilation_target }}/debug/*
-          target/${{ inputs.compilation_target }}/release/*
-          target/${{ inputs.compilation_target }}/doc/*
-          !target/**/.fingerprint/
-          !target/**/build/
-          !target/**/deps/
-          !target/**/examples/
-          !target/**/incremental/
-          !target/**/.cargo-lock
-          !target/**/*.d
-          !target/**/*.rlib
-          !target/**/.rustc_info.json
-          !target/**/.rustdoc_fingerprint.json
-          !target/**/CACHEDIR.TAG
+          ${{ inputs.working_directory }}/target/debug/*
+          ${{ inputs.working_directory }}/target/release/*
+          ${{ inputs.working_directory }}/target/doc/*
+          ${{ inputs.working_directory }}/target/${{ inputs.compilation_target }}/debug/*
+          ${{ inputs.working_directory }}/target/${{ inputs.compilation_target }}/release/*
+          ${{ inputs.working_directory }}/target/${{ inputs.compilation_target }}/doc/*
+          !${{ inputs.working_directory }}/target/**/.fingerprint/
+          !${{ inputs.working_directory }}/target/**/build/
+          !${{ inputs.working_directory }}/target/**/deps/
+          !${{ inputs.working_directory }}/target/**/examples/
+          !${{ inputs.working_directory }}/target/**/incremental/
+          !${{ inputs.working_directory }}/target/**/.cargo-lock
+          !${{ inputs.working_directory }}/target/**/*.d
+          !${{ inputs.working_directory }}/target/**/*.rlib
+          !${{ inputs.working_directory }}/target/**/.rustc_info.json
+          !${{ inputs.working_directory }}/target/**/.rustdoc_fingerprint.json
+          !${{ inputs.working_directory }}/target/**/CACHEDIR.TAG

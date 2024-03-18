@@ -14,7 +14,8 @@ TODO
 |`arguments`| The arguments to use with the subcommand | No | ` ` | `--workspace` `--all-features` `--bin binary_name` `-- --help` `-- -V` | 
 | `rust_release_channel` | The official Rust release channel to use | No | `stable` | `stable`, `beta`, `nightly` | 
 | `use_cross` |Whether to use `cross` instead of using `cargo`| No | `false` | `true`, `false` | 
-| `compilation_target` | The Rust [compilation target](https://doc.rust-lang.org/nightly/rustc/platform-support.html) to use  | No | `x86_64-unknown-linux-gnu` | `x86_64-unknown-linux-gnu`, `x86_64-pc-windows-msvc`, `aarch64-apple-darwin` | 
+| `compilation_target` | The Rust [compilation target](https://doc.rust-lang.org/nightly/rustc/platform-support.html) to use  | No | `x86_64-unknown-linux-gnu` | `x86_64-unknown-linux-gnu`, `x86_64-pc-windows-msvc`, `aarch64-apple-darwin` |
+| `working_directory` | The directory to run the commands in  | No | `.` | `.`, `./tests/test_app`, `./rust_project_workspace` |
 
 ## Steps
 
