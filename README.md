@@ -51,7 +51,17 @@ Runs the given subcommand using `cargo` and the provided arguments, if the input
 
 Runs the given subcommand using `cross` and the provided arguments, if the input `use_cross` is `true`.
 
+### 8. Gather Outputs
+
+Collects all possible outputs in a common directory (`target/.dist`).
+This is necessary because Cargo creates numerous files and directories at different levels of nesting with no fixed path to the binaries or the documentation across all platforms.
+
+### 9. Upload Artifact
+
+Uploads the files in the form of an artifact and names it `artifact-${{ inputs.subcommand }}-${{ inputs.compilation_target }}`. 
+Some examples of possible artifact names: `artifact-build-x86_64-unknown-linux-gnu`, `artifact-doc-x86_64-unknown-linux-gnu`, `artifact-build-x86_64-pc-windows-msvc`, `artifact-build-aarch64-apple-darwin`.
+
 ## Outputs
 
-The built binaries or documentation if relevant. Otherwise none. 
+The artifact that contains the built binaries or documentation if relevant. Otherwise none. 
 The action fails if any of the steps encounter an error. Otherwise it succeeds.
