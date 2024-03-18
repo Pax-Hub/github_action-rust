@@ -38,11 +38,6 @@ jobs:
           - test
           - doc
           - build
-        exclude:
-          - platform: windows
-            cpu_architecture: aarch64
-          - platform: apple
-            cpu_architecture: aarch64
         include:
           - platform: linux
             cicd_runner: ubuntu-latest
@@ -70,6 +65,14 @@ jobs:
             cpu_architecture: aarch64
             platform: linux
             toolchain: gnu
+          - compilation_target: aarch64-pc-windows-msvc
+            cpu_architecture: aarch64
+            platform: windows
+            toolchain: msvc
+          - compilation_target: aarch64-apple-darwin
+            cpu_architecture: aarch64
+            platform: apple
+            toolchain: darwin
           - subcommand: fmt
             job_name: 📑 Format Job
             arguments: '--verbose -- --check'
