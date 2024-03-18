@@ -69,10 +69,12 @@ jobs:
             cpu_architecture: aarch64
             platform: windows
             toolchain: msvc
+            use_cross: false # No Cross image for this yet
           - compilation_target: aarch64-apple-darwin
             cpu_architecture: aarch64
             platform: apple
             toolchain: darwin
+            use_cross: false # No Cross image for this yet
           - subcommand: fmt
             job_name: 📑 Format Job
             arguments: '--verbose -- --check'
