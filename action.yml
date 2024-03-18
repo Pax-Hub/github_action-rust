@@ -38,7 +38,7 @@ outputs:
 
   built-package:
     description: 'Built Binaries or Documentation uploaded as an artifact'
-    value: ${{ steps.artifact_upload_step.outputs.artifact-${{ subcommand }}-${{ compilation_target }} }}
+    value: ${{ format(steps.artifact_upload_step.outputs.artifact-{0}-{1}, inputs.subcommand, inputs.compilation_target) }}
 
 runs:
 
@@ -109,7 +109,7 @@ runs:
       id: artifact_upload_step
       uses: actions/upload-artifact@v4
       with:
-        name: artifact-${{ subcommand }}-${{ compilation_target }}
+        name: artifact-${{ inputs.subcommand }}-${{ inputs.compilation_target }}
         if-no-files-found: ignore
         overwrite: true
         path: |
