@@ -119,14 +119,47 @@ runs:
           ${{ inputs.working_directory }}/target/${{ inputs.compilation_target }}/debug/*
           ${{ inputs.working_directory }}/target/${{ inputs.compilation_target }}/release/*
           ${{ inputs.working_directory }}/target/${{ inputs.compilation_target }}/doc/*
-          !${{ inputs.working_directory }}/target/**/.fingerprint/
-          !${{ inputs.working_directory }}/target/**/build/
-          !${{ inputs.working_directory }}/target/**/deps/
-          !${{ inputs.working_directory }}/target/**/examples/
-          !${{ inputs.working_directory }}/target/**/incremental/
-          !${{ inputs.working_directory }}/target/**/.cargo-lock
-          !${{ inputs.working_directory }}/target/**/*.d
-          !${{ inputs.working_directory }}/target/**/*.rlib
-          !${{ inputs.working_directory }}/target/**/.rustc_info.json
-          !${{ inputs.working_directory }}/target/**/.rustdoc_fingerprint.json
-          !${{ inputs.working_directory }}/target/**/CACHEDIR.TAG
+          !${{ inputs.working_directory }}/target/debug/.fingerprint/
+          !${{ inputs.working_directory }}/target/debug/build/
+          !${{ inputs.working_directory }}/target/debug/deps/
+          !${{ inputs.working_directory }}/target/debug/examples/
+          !${{ inputs.working_directory }}/target/debug/incremental/
+          !${{ inputs.working_directory }}/target/debug/.cargo-lock
+          !${{ inputs.working_directory }}/target/debug/*.d
+          !${{ inputs.working_directory }}/target/debug/*.rlib
+          !${{ inputs.working_directory }}/target/debug/.rustc_info.json
+          !${{ inputs.working_directory }}/target/debug/.rustdoc_fingerprint.json
+          !${{ inputs.working_directory }}/target/debug/CACHEDIR.TAG
+          !${{ inputs.working_directory }}/target/release/.fingerprint/
+          !${{ inputs.working_directory }}/target/release/build/
+          !${{ inputs.working_directory }}/target/release/deps/
+          !${{ inputs.working_directory }}/target/release/examples/
+          !${{ inputs.working_directory }}/target/release/incremental/
+          !${{ inputs.working_directory }}/target/release/.cargo-lock
+          !${{ inputs.working_directory }}/target/release/*.d
+          !${{ inputs.working_directory }}/target/release/*.rlib
+          !${{ inputs.working_directory }}/target/release/.rustc_info.json
+          !${{ inputs.working_directory }}/target/release/.rustdoc_fingerprint.json
+          !${{ inputs.working_directory }}/target/release/CACHEDIR.TAG
+          !${{ inputs.working_directory }}/target/${{ inputs.compilation_target }}/debug/.fingerprint/
+          !${{ inputs.working_directory }}/target/${{ inputs.compilation_target }}/debug/build/
+          !${{ inputs.working_directory }}/target/${{ inputs.compilation_target }}/debug/deps/
+          !${{ inputs.working_directory }}/target/${{ inputs.compilation_target }}/debug/examples/
+          !${{ inputs.working_directory }}/target/${{ inputs.compilation_target }}/debug/incremental/
+          !${{ inputs.working_directory }}/target/${{ inputs.compilation_target }}/debug/.cargo-lock
+          !${{ inputs.working_directory }}/target/${{ inputs.compilation_target }}/debug/*.d
+          !${{ inputs.working_directory }}/target/${{ inputs.compilation_target }}/debug/*.rlib
+          !${{ inputs.working_directory }}/target/${{ inputs.compilation_target }}/debug/.rustc_info.json
+          !${{ inputs.working_directory }}/target/${{ inputs.compilation_target }}/debug/.rustdoc_fingerprint.json
+          !${{ inputs.working_directory }}/target/${{ inputs.compilation_target }}/debug/CACHEDIR.TAG
+          !${{ inputs.working_directory }}/target/${{ inputs.compilation_target }}/release/.fingerprint/
+          !${{ inputs.working_directory }}/target/${{ inputs.compilation_target }}/release/build/
+          !${{ inputs.working_directory }}/target/${{ inputs.compilation_target }}/release/deps/
+          !${{ inputs.working_directory }}/target/${{ inputs.compilation_target }}/release/examples/
+          !${{ inputs.working_directory }}/target/${{ inputs.compilation_target }}/release/incremental/
+          !${{ inputs.working_directory }}/target/${{ inputs.compilation_target }}/release/.cargo-lock
+          !${{ inputs.working_directory }}/target/${{ inputs.compilation_target }}/release/*.d
+          !${{ inputs.working_directory }}/target/${{ inputs.compilation_target }}/release/*.rlib
+          !${{ inputs.working_directory }}/target/${{ inputs.compilation_target }}/release/.rustc_info.json
+          !${{ inputs.working_directory }}/target/${{ inputs.compilation_target }}/release/.rustdoc_fingerprint.json
+          !${{ inputs.working_directory }}/target/${{ inputs.compilation_target }}/release/CACHEDIR.TAG
