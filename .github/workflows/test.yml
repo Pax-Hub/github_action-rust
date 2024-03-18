@@ -1,12 +1,12 @@
 on:
   push:
     paths:
-      - '.github/workflows/test-action.yml' # Run when this workflow changes
+      - '.github/workflows/test.yml' # Run when this workflow changes
       - 'tests/**/src/**' # Run when the test project changes
       - 'action.yml' # Run when the action changes
   pull_request:
     paths:
-      - '.github/workflows/test-action.yml' # Run when this workflow changes
+      - '.github/workflows/test.yml' # Run when this workflow changes
       - 'tests/**/src/**' # Run when the test project changes
       - 'action.yml' # Run when the action changes
     branches: [main]
