@@ -38,7 +38,7 @@ outputs:
 
   built-package:
     description: 'Built Binaries or Documentation uploaded as an artifact'
-    value: ${{ artifact_upload_step.outputs.artifact }}
+    value: ${{ steps.artifact_upload_step.outputs.artifact }}
 
 runs:
 
