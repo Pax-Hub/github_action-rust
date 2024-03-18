@@ -4,7 +4,7 @@ Cross-platform composite GitHub Action for Rust Workflows
 
 ## Usage Examples
 
-TODO
+Check the [.github/workflows](.github/workflows) directory for usage examples.
 
 ## Inputs
 
