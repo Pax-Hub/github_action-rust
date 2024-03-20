@@ -40,7 +40,7 @@ Installs [`cross-rs`](https://github.com/cross-rs/cross). Uses [taiki-e/install-
 
 ### 5. Install llvm-cov
 
-Installs `cargo-llvm-cov`(https://github.com/taiki-e/cargo-llvm-cov). Uses [taiki-e/install-action](https://github.com/taiki-e/install-action).
+Installs `cargo-llvm-cov`(https://github.com/taiki-e/cargo-llvm-cov) if necessary. Uses [taiki-e/install-action](https://github.com/taiki-e/install-action).
 
 ### 6. Setup Cache
 
